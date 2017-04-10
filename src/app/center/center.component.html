@@ -1,0 +1,26 @@
+<div class="row center-container" *ngIf="!isEmpty">
+  <div class="col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">问卷列表</div>
+      <div class="list-group">
+        <a class="list-group-item questionnaire-item" *ngFor="let item of questionnaires; let i=index;" (click)="onSelect(item,i)" [class.active]="item===selectedQuestionnaire">
+          <questionnaire-item [questionnaire]="item"></questionnaire-item>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">问卷详情</div>
+      <div class="panel-body">
+        <questionnaire-detail [questionnaire]="selectedQuestionnaire"></questionnaire-detail>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">问卷管理</div>
+      <div class="panel-body">
+        <questionnaire-controls [questionnaire]="selectedQuestionnaire" (deleteQuestionnaire)="onDeleteQuestionnaire()" (publishQuestionnaire)="onPublishQuestionnaire()"  (endQuestionnaire)="onEndQuestionnaire()"></questionnaire-controls>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<table class="table" *ngIf="questionnaire">
+  <tr>
+    <td>问题总数:</td>
+    <td>{{questionnaire.questionList.length}}</td>
+  </tr>
+  <tr>
+    <td>创建时间:</td>
+    <td>{{questionnaire.createDate}}</td>
+  </tr>
+  <tr *ngIf="questionnaire.state===1">
+    <td colspan="2">
+      <a [routerLink]="['/published',questionnaire.id]">问卷发布链接</a>
+    </td>
+  </tr>
+</table>

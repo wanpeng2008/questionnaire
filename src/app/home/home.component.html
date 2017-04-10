@@ -1,0 +1,23 @@
+<div class="home">
+  <div class="row">
+    <div class="col col-sm-4 col-md-offset-4">
+      <carousel>
+        <slide *ngFor="let slideItem of slides; let index=index">
+          <div class="slide-image">
+            <img [src]="slideItem.image" alt="" class="img-rounded img-responsive">
+          </div>
+          <div class="carousel-caption">
+            <p>{{slideItem.text}}</p>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+  </div>
+  <section>
+    <h2 class="hero-title ">
+      <span>10,145,267</span>个用户正在使用
+      <a  class="btn btn-success btn-lg" [routerLink]="['/admin/edit/0']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">创建新问卷</a>
+    </h2>
+  </section>
+  <div class="divider"></div>
+</div>

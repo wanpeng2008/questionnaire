@@ -1,0 +1,5 @@
+<ul class="question-controls list-group">
+  <li class="list-group-item" *ngFor="let item of controls">
+    <a [ngClass]="item.iconClass" (click)="onAddQuestion(item)">{{item.label}}</a>
+  </li>
+</ul>

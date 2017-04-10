@@ -1,0 +1,14 @@
+<div class="row" *ngIf="questionnaire">
+  <div class="col-lg-3">
+    <button class="btn btn-default btn-lg" type="button" (click)="onPreview()">
+      <span class="glyphicon glyphicon-search"></span>
+      <span class="control-text">预览</span>
+    </button>
+  </div>
+  <div class="col-lg-3" *ngIf="questionnaire.state===0">
+    <button class="btn btn-default btn-lg" type="button" (click)="onPublish()">
+      <span class="glyphicon glyphicon-plane"></span>
+      <span class="control-text">发布</span>
+    </button>
+  </div>
+</div>
