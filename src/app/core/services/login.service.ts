@@ -59,10 +59,10 @@ export class LoginService {
     return new Observable((observer: Observer<any>)=>{
       this.http.post(this.loginUrl, body, { headers }).subscribe(res=>{
         let body = res.json();
-        if (body && body.success) {
+        if (body && body.data) {
           // this.userService.isLogin = true;
           // this.userService.userName = data['username'];
-          observer.next(res);
+          observer.next(body.data);
           observer.complete();
         }
       });

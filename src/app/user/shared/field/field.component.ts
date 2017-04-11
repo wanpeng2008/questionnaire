@@ -3,7 +3,7 @@ import {FormGroup} from "@angular/forms";
 import {FieldBase} from "./field-base";
 
 @Component({
-  selector: 'app-field',
+  selector: 'field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.css']
 })

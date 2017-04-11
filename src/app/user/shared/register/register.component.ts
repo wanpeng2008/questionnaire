@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from "@angular/http";
 import {Observer, Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {FieldBase} from "../field/field-base";
 import {Router} from "@angular/router";
+import {RegisterService} from "../../../core/services/register.service";
+import {UserService} from "../../../core/services/user.service";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
 
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.debug('RegisterComponent init')
     this.form = this.rs.toFormGroup(this.fields);
   }
 

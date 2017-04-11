@@ -35,11 +35,10 @@ export class LoginComponent implements OnInit {
   login() {
     this.rs
       .login(this.form.value)
-      .subscribe((res: Response) => {
-        let body = res.json();
-        if (body && body.success) {
+      .subscribe((res) => {
+        if (res && res.id) {
           this.userService.isLogin = true;
-          this.userService.userInfo = { username: this.form.value.username,createDate:new Date().toLocaleString()}
+          this.userService.userInfo = { username: res.username,createDate:new Date().toLocaleString()}
           this.route.navigateByUrl(this.returnUrl?this.returnUrl:'/');
         }
       }, error => {

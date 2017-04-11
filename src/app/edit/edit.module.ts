@@ -7,6 +7,7 @@ import {EditSharedModule} from "./shared/edit-shared.module";
 import {TabsModule} from "ng2-bootstrap";
 import {SharedModule} from "../shared/shared.module";
 import {QuestionnaireService} from "../core/services/questionnaire.service";
+import {CoreModule} from "../core/core.module";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {QuestionnaireService} from "../core/services/questionnaire.service";
     TabsModule.forRoot(),
     EditRoutingModule,
     EditSharedModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   declarations: [EditComponent, ],
   providers: [QuestionnaireService]

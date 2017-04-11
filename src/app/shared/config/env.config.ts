@@ -7,5 +7,7 @@ export interface EnvConfig {
 
 export const Config: EnvConfig = {};//JSON.parse('');
 
-export const SITE_HOST_URL: string = 'http://localhost:5000/';
+export const SITE_HOST_URL: string = 'api/';
+
+//export const SITE_HOST_URL: string = 'http://localhost:5000/';
 
