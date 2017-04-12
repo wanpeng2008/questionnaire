@@ -7,6 +7,17 @@
 <div *ngIf="editable && isEditing">
   <input type="text" placeholder="请输入问题" class="form-control" [(ngModel)]="question.title" required>
   <div class="btns">
-    <button class="btn">保存</button>
+    <button (click)="onSave()" class="btn">保存</button>
+    <button (click)="onCancel()" class= "btn">取消</button>
   </div>
 </div>
+
+<div *ngIf="editable && !isEditing">
+  <p>{{question.title}}</p>
+  <input type="text" placeholder="请输入问题的答案" class="form-control" disabled="disabled" />
+  <div class="btns">
+    <button (click)="onEdit()" class="btn btn-default">编辑</button>
+    <button (click)="onDelete()" class= "btn btn-default">删除</button>
+  </div>
+</div>
+

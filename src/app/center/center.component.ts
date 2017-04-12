@@ -17,6 +17,7 @@ export class CenterComponent implements OnInit {
   constructor(private questionnaireService:QuestionnaireService) { }
 
   ngOnInit() {
+    console.debug('CenterComponent init')
     this.questionnaireService.getQuestionnaires()
       .subscribe(
         questionnaires => {
@@ -40,12 +41,15 @@ export class CenterComponent implements OnInit {
   }
 
   onPublishQuestionnaire(){
-    this.questionnaireService.updateQuestionnaireState(this.selectedQuestionnaire.id, QuestionnaireState.Published).subscribe(questionnaire => {
-      this.selectedQuestionnaire.state = QuestionnaireState.Published;
-      this.questionnaires[this.selectedIndex] = Object.assign({},this.selectedQuestionnaire)
-    },
-    error => console.log(error)
-    )
+    if(this.selectedQuestionnaire && this.selectedQuestionnaire.state!==QuestionnaireState.Published){
+      this.questionnaireService.updateQuestionnaireState(this.selectedQuestionnaire.id, QuestionnaireState.Published).subscribe(questionnaire => {
+          this.selectedQuestionnaire.state = QuestionnaireState.Published;
+          this.questionnaires[this.selectedIndex] = Object.assign({},this.selectedQuestionnaire)
+        },
+        error => console.log(error)
+      )
+    }
+
   }
 
 }

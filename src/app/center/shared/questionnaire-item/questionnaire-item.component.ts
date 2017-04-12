@@ -2,7 +2,7 @@ import {Component, OnInit, OnChanges, SimpleChanges, Input} from '@angular/core'
 import {QuestionnaireState, QuestionnaireModel} from "../../../shared/models/questionnaire-model";
 
 @Component({
-  selector: 'app-questionnaire-item',
+  selector: 'questionnaire-item',
   templateUrl: './questionnaire-item.component.html',
   styleUrls: ['./questionnaire-item.component.css']
 })
@@ -19,8 +19,8 @@ export class QuestionnaireItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     let questionnaireChage = changes['questionnaire'];
-    if(questionnaireChage.previousValue.state &&
-      questionnaireChage.currentValue.state != questionnaireChage.previousValue.state){
+    if(questionnaireChage.previousValue==null || (questionnaireChage.previousValue.state &&
+      questionnaireChage.currentValue.state != questionnaireChage.previousValue.state)){
       this.questionnaire = changes['questionnaire'].currentValue;
       this.setState();
     }

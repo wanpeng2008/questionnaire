@@ -3,7 +3,7 @@ import {QuestionnaireModel} from "../../../shared/models/questionnaire-model";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-questionnaire-controls',
+  selector: 'questionnaire-controls',
   templateUrl: './questionnaire-controls.component.html',
   styleUrls: ['./questionnaire-controls.component.css']
 })
@@ -14,6 +14,7 @@ export class QuestionnaireControlsComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    console.debug('QuestionnaireControlsComponent init')
   }
 
   onPreview(){
@@ -22,6 +23,14 @@ export class QuestionnaireControlsComponent implements OnInit {
 
   onPublish(){
     this.publishQuestionnaire.emit();
+  }
+
+  onEdit(){
+    this.router.navigateByUrl('admin/edit/' + this.questionnaire.id);
+  }
+
+  onDelete(){
+    this.deleteQuestionnaire.emit();
   }
 
 }

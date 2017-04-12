@@ -17,7 +17,7 @@ export class QuestionnaireService {
 
   //根据id获取问卷信息
   getQuestionnaireById(id: string) {
-    return this.http.get(SITE_HOST_URL + 'questionnaire/' + id)
+    return this.http.get(SITE_HOST_URL + 'questionnaires/' + id)
       .map(res => <QuestionnaireModel>res.json().data)
       .catch(this.handleError);
   }
@@ -34,14 +34,14 @@ export class QuestionnaireService {
     let headers = new Headers({'Content-Type':'application/json'});
     let options = new RequestOptions({headers:headers});
 
-    return this.http.post(SITE_HOST_URL + 'questionnaire/add', body, options)
+    return this.http.post(SITE_HOST_URL + 'questionnaires', body, options)
       .map(res => <QuestionnaireModel>res.json().data)
       .catch(this.handleError);
   }
 
   //删除已有问卷
   deleteQuestionnaire(id: string) {
-    return this.http.get(SITE_HOST_URL + 'questionnaire/delete/' + id)
+    return this.http.delete(SITE_HOST_URL + 'questionnaires/' + id)
       .map(res => <Object>res.json().data)
       .catch(this.handleError);
   }
@@ -51,17 +51,22 @@ export class QuestionnaireService {
     let body = JSON.stringify(questionnaire);
     let headers = new Headers({'Content-Type':'application/json'});
     let options = new RequestOptions({headers:headers});
+    let id = questionnaire.id;
 
-    return this.http.post(SITE_HOST_URL + 'questionnaire/update', body, options)
+    return this.http.put(SITE_HOST_URL + 'questionnaires/'+id, body, options)
       .map(res => <QuestionnaireModel>res.json().data)
       .catch(this.handleError);
   }
 
   //发布问卷
   publishQuestionnaire(id: string){
-    return this.http.get(SITE_HOST_URL + 'questionnaire/publish/' + id)
-      .map(res => <QuestionnaireModel>res.json().data)
-      .catch(this.handleError);
+    this.getQuestionnaireById(id).subscribe(
+      questionnaire => {
+        questionnaire.state = QuestionnaireState.Published;
+        return this.updateQuestionnaire(questionnaire);
+      },
+      error => console.error(error)
+    )
   }
 
   //回收问卷

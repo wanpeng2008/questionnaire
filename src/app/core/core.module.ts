@@ -15,7 +15,7 @@ import {BackendMockService} from "./services/backend-mock.service";
     RouterModule
   ],
   declarations: [NavbarComponent],
-  providers: [LoginService,UserService,RegisterService,AuthGuardService, BackendMockService],
+  providers: [LoginService,RegisterService,AuthGuardService, BackendMockService],
   exports: [NavbarComponent]
 })
 export class CoreModule { }

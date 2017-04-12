@@ -11,12 +11,15 @@ export class QuestionnaireComponent implements OnInit {
 
   @Input() questionnaire: QuestionnaireModel;
   @Output() submitQuestionnaire = new EventEmitter();
+  private editable:boolean;
   private isPreviewPage:boolean;
   private alert:any = {type:'', msg:''};
 
   constructor(private router:Router, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+    console.debug('QuestionnaireComponent init')
+    this.editable = this.questionnaire && this.questionnaire.state === QuestionnaireState.Created;
     this.activatedRoute.queryParams.subscribe(params =>{
       this.isPreviewPage = params['type']==='preview';
     })
@@ -41,5 +44,4 @@ export class QuestionnaireComponent implements OnInit {
         break;
     }
   }
-
 }
