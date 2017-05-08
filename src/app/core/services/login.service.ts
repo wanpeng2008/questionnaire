@@ -6,14 +6,16 @@ import {FieldText} from "../../user/shared/field/field-text";
 import {FormControl, Validators, FormGroup} from "@angular/forms";
 import {FieldValidators} from "../../user/shared/field/field-validators";
 import {Observer, Observable} from "rxjs";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class LoginService {
 
 
-  private loginUrl = `${SITE_HOST_URL}login`;
+  private loginUrl = `${SITE_HOST_URL}auth`;
 
-  constructor(private http: Http) { }
+  //constructor(private http: Http) { }
+  constructor(private http: Http, public authHttp: AuthHttp) {}
 
   getFields() {
     let fields: FieldBase<any>[] = [
@@ -58,13 +60,20 @@ export class LoginService {
     headers.append('Content-Type', 'application/json');
     return new Observable((observer: Observer<any>)=>{
       this.http.post(this.loginUrl, body, { headers }).subscribe(res=>{
-        let body = res.json();
+/*        let body = res.json();
         if (body && body.data) {
           // this.userService.isLogin = true;
           // this.userService.userName = data['username'];
           observer.next(body.data);
           observer.complete();
+        }*/
+        let body = res.json();
+        if (body && body.token) {
+          observer.next(body.token);
+          observer.complete();
         }
+      },error => {
+        observer.error(error)
       });
     });
   }

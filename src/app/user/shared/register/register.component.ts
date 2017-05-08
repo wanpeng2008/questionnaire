@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
           observer.next(true);
         }).delay(2000).subscribe(data=>{ // 操作提示，2秒后跳转到首页
           if(body.success) {
-            this.userService.isLogin = true; // 设置当前用户已登录
+            //this.userService.isLogin = true; // 设置当前用户已登录
             this.userService.userInfo = { username: this.form.value.username,createDate:new Date().toLocaleString()}  // 缓存用户信息，显示在导航栏上
             this.route.navigate(['']); // 跳到首页
           }

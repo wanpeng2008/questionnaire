@@ -35,11 +35,21 @@ export class LoginComponent implements OnInit {
   login() {
     this.rs
       .login(this.form.value)
-      .subscribe((res) => {
-        if (res && res.id) {
+      .subscribe((token) => {
+/*        if (res && res.id) {
           this.userService.isLogin = true;
           this.userService.userInfo = { username: res.username,createDate:new Date().toLocaleString()}
           this.route.navigateByUrl(this.returnUrl?this.returnUrl:'/');
+        }*/
+        if(token){
+          //localStorage.setItem('token', token);
+          this.userService.userName = this.form.value.username;
+          this.userService.getUser().subscribe(()=>{
+            this.route.navigateByUrl(this.returnUrl?this.returnUrl:'/');
+          }, error => {
+            console.error(error);
+          });
+
         }
       }, error => {
         console.error(error);

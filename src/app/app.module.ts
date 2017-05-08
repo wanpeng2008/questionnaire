@@ -8,12 +8,10 @@ import { AppComponent } from './app.component';
 import {BsDropdownModule} from "ng2-bootstrap";
 import {HomeModule} from "./home/home.module";
 import {AdminModule} from "./admin/admin.module";
-import {BackendMockService} from "./core/services/backend-mock.service";
-import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {UserService} from "./core/services/user.service";
-import {QuestionnaireModel} from "./shared/models/questionnaire-model";
 import {QuestionnaireService} from "./core/services/questionnaire.service";
 import {PublishedModule} from "./published/published.module";
+
 
 @NgModule({
   declarations: [
@@ -28,7 +26,7 @@ import {PublishedModule} from "./published/published.module";
     HomeModule,
     PublishedModule,
     BsDropdownModule.forRoot(),
-    InMemoryWebApiModule.forRoot(BackendMockService,{post204: false, put204: false,})
+    //InMemoryWebApiModule.forRoot(BackendMockService,{post204: false, put204: false,})
   ],
   // 放在共同的parent，保证单例
   providers: [UserService, QuestionnaireService],
