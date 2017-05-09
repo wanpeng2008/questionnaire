@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
-import {LoginService} from "../services/login.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'my-navbar',
@@ -10,15 +10,17 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private userService:UserService, private loginService:LoginService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router) { }
   ngOnInit() {
     console.debug('NavbarComponent init')
+    if(this.authService.loggedIn()){
+      this.authService.refreshCurrentUserInfoRequest().subscribe()
+    }
   }
   logout() {
-    //this.loginService.logout();
-    //this.userService.isLogin = false;
-    this.userService.userInfo = null;
-    this.router.navigate(['']);
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['']);
+    })
   }
 
 }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
-import {LoginService} from "./services/login.service";
 import {RegisterService} from "./services/register.service";
 import {RouterModule} from "@angular/router";
 import {AuthGuardService} from "./services/auth-guard.service";
@@ -18,7 +17,7 @@ import {AuthModule} from "../auth/auth.module";
     AuthModule,
   ],
   declarations: [NavbarComponent],
-  providers: [LoginService,RegisterService,AuthGuardService, BackendMockService, AuthService],
+  providers: [RegisterService,AuthGuardService, BackendMockService],
   exports: [NavbarComponent]
 })
 export class CoreModule { }
