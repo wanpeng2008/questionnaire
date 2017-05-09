@@ -10,7 +10,7 @@ import {FieldValidators} from "../../user/shared/field/field-validators";
 export class RegisterService {
 
 
-  private registerUrl = `${SITE_HOST_URL}user/add`;
+  private registerUrl = `${SITE_HOST_URL}auth/register`;
 
   constructor(private http: Http) { }
 

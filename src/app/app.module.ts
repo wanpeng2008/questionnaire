@@ -11,6 +11,7 @@ import {AdminModule} from "./admin/admin.module";
 import {UserService} from "./core/services/user.service";
 import {QuestionnaireService} from "./core/services/questionnaire.service";
 import {PublishedModule} from "./published/published.module";
+import {AuthService} from "./core/services/auth.service";
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import {PublishedModule} from "./published/published.module";
     //InMemoryWebApiModule.forRoot(BackendMockService,{post204: false, put204: false,})
   ],
   // 放在共同的parent，保证单例
-  providers: [UserService, QuestionnaireService],
+  providers: [UserService, QuestionnaireService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

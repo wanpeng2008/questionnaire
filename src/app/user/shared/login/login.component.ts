@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {FieldBase} from "../field/field-base";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Response} from "@angular/http";
-import {LoginService} from "../../../core/services/login.service";
 import {UserService} from "../../../core/services/user.service";
+import {FieldValidators} from "../field/field-validators";
+import {FieldText} from "../field/field-text";
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,11 @@ export class LoginComponent implements OnInit {
   fields: FieldBase<any>[] = [];
   returnUrl: string ='';
 
-  constructor(private rs: LoginService,
+  constructor(private authService: AuthService,
               private activeRoute: ActivatedRoute,
               private route:Router,
               private userService:UserService) {
-    this.fields = rs.getFields();
+    this.fields = this.getFields();
     this.activeRoute.queryParams.subscribe(params => {
       this.returnUrl = params['returnUrl'];
     });
@@ -29,28 +30,51 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     console.debug('LoginComponent init')
-    this.form = this.rs.toFormGroup(this.fields);
+    this.form = this.toFormGroup(this.fields);
+  }
+
+  getFields() {
+    let fields: FieldBase<any>[] = [
+      new FieldText({
+        key: 'username',
+        label: '用户名',
+        value: '',
+        required: true,
+        pattern: 'username',
+        order: 1
+      }),
+      new FieldText({
+        key: 'password',
+        label: '密码',
+        type: 'password',
+        value: '',
+        required: true,
+        pattern: 'password',
+        order: 2
+      }),
+    ];
+    return fields.sort((a, b) => a.order - b.order);
+  }
+
+  toFormGroup(fields: FieldBase<any>[]) {
+    let group: any = {};
+
+    fields.forEach(field => {
+      group[field.key] =
+        field.pattern ?
+          new FormControl(field.value || '', (<any>FieldValidators)[field.pattern]) :
+          field.required ?
+            new FormControl(field.value || '', Validators.required) :
+            new FormControl(field.value || '');
+    });
+    return new FormGroup(group);
   }
 
   login() {
-    this.rs
+    this.authService
       .login(this.form.value)
-      .subscribe((token) => {
-/*        if (res && res.id) {
-          this.userService.isLogin = true;
-          this.userService.userInfo = { username: res.username,createDate:new Date().toLocaleString()}
-          this.route.navigateByUrl(this.returnUrl?this.returnUrl:'/');
-        }*/
-        if(token){
-          //localStorage.setItem('token', token);
-          this.userService.userName = this.form.value.username;
-          this.userService.getUser().subscribe(()=>{
-            this.route.navigateByUrl(this.returnUrl?this.returnUrl:'/');
-          }, error => {
-            console.error(error);
-          });
-
-        }
+      .subscribe(() => {
+        this.route.navigateByUrl(this.returnUrl ? this.returnUrl : '/');
       }, error => {
         console.error(error);
       });
