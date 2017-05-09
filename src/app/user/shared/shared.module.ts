@@ -11,7 +11,7 @@ import {AlertModule} from "ng2-bootstrap";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AlertModule,
+    AlertModule.forRoot(),
     CoreModule
   ],
   declarations: [RegisterComponent, LoginComponent, FieldComponent],

@@ -1,8 +1,13 @@
 <div>
-  <div *ngIf="!registered">
+  <div>
     <h2>注册</h2>
+    {{alert?.msg}}
+    <div *ngIf="alert?.msg||'' !== ''">
+      <alert [type]="alert.type" dismissible="true" >
+        {{ alert?.msg }}
+      </alert>
+    </div>
     <form (ngSubmit)="register()" [formGroup]="form" class="form-group">
-
       <div *ngFor="let field of fields" class="form-row">
         <field [field]="field" [form]="form"></field>
       </div>
@@ -18,9 +23,5 @@
       </div>
     </form>
   </div>
-  <div *ngIf="registered">
-    <alert [type]="alert.type" dismissible="true" >
-      {{ alert?.msg }}
-    </alert>
-  </div>
+
 </div>

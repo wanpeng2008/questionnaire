@@ -4,7 +4,6 @@ import {FormGroup} from "@angular/forms";
 import {FieldBase} from "../field/field-base";
 import {Router} from "@angular/router";
 import {RegisterService} from "../../../core/services/register.service";
-import {UserService} from "../../../core/services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -14,12 +13,10 @@ import {UserService} from "../../../core/services/user.service";
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
-  registered = false;
   fields: FieldBase<any>[] = [];
-  alert:any = {msg: '注册成功', type: 'success', closable: true};
+  alert:any = {msg: '', type: 'success', closable: true};
 
   constructor(private rs: RegisterService,
-              private userService:UserService,
               private route:Router) {
     this.fields = rs.getFields();
   }
@@ -45,23 +42,18 @@ export class RegisterComponent implements OnInit {
     this.rs
       .addUser(this.form.value)
       .subscribe((res: any) => {
-        let body = res.json();
-        this.registered = true;
         new Observable((observer: Observer<any>) => {
-          this.alert.msg = body.message || "注册成功"; // 操作提示信息
-          this.alert.type =body.success ? "success" : "danger";
-          this.registered = true;
+          this.alert.msg =  "注册成功"; // 操作提示信息
+          this.alert.type = "success";
           observer.next(true);
         }).delay(2000).subscribe(data=>{ // 操作提示，2秒后跳转到首页
-          if(body.success) {
-            //this.userService.isLogin = true; // 设置当前用户已登录
-            this.userService.userInfo = { username: this.form.value.username,createDate:new Date().toLocaleString()}  // 缓存用户信息，显示在导航栏上
-            this.route.navigate(['']); // 跳到首页
-          }
-          this.registered = false;
+          this.alert.msg = ""
+          this.route.navigate(['']); // 跳到首页
         });
       }, (error: any) => {
-        console.error(error);
+        //console.error(error);
+        this.alert.msg =  "注册失败"; // 操作提示信息
+        this.alert.type = "danger";
       });
   }
 
