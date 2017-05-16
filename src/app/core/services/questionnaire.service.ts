@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 import {QuestionnaireModel, QuestionnaireState} from "../../shared/models/questionnaire-model";
 import {SITE_HOST_URL} from "../../shared/config/env.config";
-import {observable} from "rxjs/symbol/observable";
+
 
 @Injectable()
 export class QuestionnaireService {
